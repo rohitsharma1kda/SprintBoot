@@ -28,7 +28,7 @@ public class CourseController {
 	public ResponseEntity<Course> createCourse(@RequestBody Course c) {
 		try {
 			Course cs = cService.addCourse(c);
-			return new ResponseEntity<>(cs, HttpStatus.OK);
+			return new ResponseEntity<>(cs, HttpStatus.CREATED);
 		} catch (Exception ex) {
 			return new ResponseEntity(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}

@@ -27,7 +27,7 @@ public class StudentController {
 	public ResponseEntity<Student> createStudent(@RequestBody Student s) {
 		try {
 			Student stu = sService.addStudent(s);
-			return new ResponseEntity<>(stu, HttpStatus.OK);
+			return new ResponseEntity<>(stu, HttpStatus.CREATED);
 		} catch (Exception ex) {
 			return new ResponseEntity(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
