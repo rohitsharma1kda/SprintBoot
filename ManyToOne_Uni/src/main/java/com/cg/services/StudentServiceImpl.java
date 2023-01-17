@@ -15,7 +15,7 @@ import com.cg.exception.NoStudentException;
 public class StudentServiceImpl implements StudentService {
 
 	@Autowired
-	StudentRepository sRepo;
+	private StudentRepository sRepo;
 
 	@Override
 	@Transactional

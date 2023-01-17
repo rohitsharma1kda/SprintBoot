@@ -22,33 +22,34 @@ public class StudentController {
 	@Autowired
 	StudentService sService;
 
-	@PostMapping("/createstudent")
+	@PostMapping("/student")
 	public ResponseEntity<Student> createStudent(@RequestBody Student s) {
-			return new ResponseEntity<>(sService.addStudent(s), HttpStatus.CREATED);
+		return new ResponseEntity<>(sService.addStudent(s), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/studentlist")
 	public ResponseEntity<List<Student>> getAllStudent() {
-			return ResponseEntity.ok(sService.findAllStudent());
+		return ResponseEntity.ok(sService.findAllStudent());
 	}
 
-	@GetMapping("/findstudentbyid/{id}")
+	@GetMapping("/studentbyid/{id}")
 	public ResponseEntity<Student> getById(@PathVariable("id") int id) throws NoStudentException {
-			return ResponseEntity.ok(sService.findById(id));
+		return ResponseEntity.ok(sService.findById(id));
 	}
 
-	@GetMapping("/findstudent/{name}")
+	@GetMapping("/studentbyname/{name}")
 	public ResponseEntity<List<Student>> getByName(@PathVariable String name) {
-			return ResponseEntity.ok(sService.findStudentByName(name));
+		return ResponseEntity.ok(sService.findStudentByName(name));
 	}
 
-	@PutMapping("modifystudent/{id}")
-	public ResponseEntity<Student> modifyStudent(@PathVariable("id") int id, @RequestBody Student s) throws NoStudentException {
-			return ResponseEntity.accepted().body(sService.modifyStudent(id, s));
+	@PutMapping("/student/{id}")
+	public ResponseEntity<Student> modifyStudent(@PathVariable("id") int id, @RequestBody Student s)
+			throws NoStudentException {
+		return ResponseEntity.accepted().body(sService.modifyStudent(id, s));
 	}
 
-	@DeleteMapping("deletestudent/{isd}")
+	@DeleteMapping("/student/{id}")
 	public ResponseEntity<Student> deleteStudent(@PathVariable("id") int id) throws NoStudentException {
-			return new ResponseEntity<>(sService.deleteStudent(id) ? HttpStatus.ACCEPTED : HttpStatus.NOT_MODIFIED);
+		return new ResponseEntity<>(sService.deleteStudent(id) ? HttpStatus.ACCEPTED : HttpStatus.NOT_MODIFIED);
 	}
 }

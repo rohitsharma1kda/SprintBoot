@@ -1,10 +1,7 @@
 package com.cg.entities;
 
 import java.time.LocalDate;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,12 +10,74 @@ import javax.persistence.Table;
 public class Trainer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int tId;
-//	create table new_tratbl(tid int primary key,fname varchar2(10) not null)
+
 	private String firstName;
+
 	private String lastName;
+
+	private LocalDate joiningDate;
+
+	private String email;
+
+	private String compName;
+
 	private String subject;
-	private LocalDate date;
+
+	public int gettId() {
+		return tId;
+	}
+
+	public void settId(int tId) {
+		this.tId = tId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public LocalDate getJoiningDate() {
+		return joiningDate;
+	}
+
+	public void setJoiningDate(LocalDate joiningDate) {
+		this.joiningDate = joiningDate;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCompName() {
+		return compName;
+	}
+
+	public void setCompName(String compName) {
+		this.compName = compName;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 
 }

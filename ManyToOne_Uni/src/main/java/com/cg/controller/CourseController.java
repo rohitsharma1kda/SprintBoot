@@ -23,7 +23,7 @@ public class CourseController {
 	@Autowired
 	CourseService cService;
 
-	@PostMapping("/createcourse")
+	@PostMapping("/course")
 	public ResponseEntity<Course> createCourse(@RequestBody Course c) {
 		return new ResponseEntity<>(cService.addCourse(c), HttpStatus.CREATED);
 	}
@@ -33,23 +33,23 @@ public class CourseController {
 		return ResponseEntity.ok(cService.findAllCourse());
 	}
 
-	@GetMapping("/findcourse{id}")
+	@GetMapping("/coursebyid{id}")
 	public ResponseEntity<Course> getById(@PathVariable("id") int id) throws NoCourseException {
 		return ResponseEntity.ok(cService.findById(id));
 	}
 
-	@GetMapping("/findcourse/{name}")
+	@GetMapping("/coursebyname/{name}")
 	public ResponseEntity<List<Course>> getByName(@PathVariable String cName) {
 		return ResponseEntity.ok(cService.findCourseByName(cName));
 	}
 
-	@PutMapping("modifycourse/{id}")
+	@PutMapping("course/{id}")
 	public ResponseEntity<Course> modifyStudent(@PathVariable("id") int id, @RequestBody Course c)
 			throws NoCourseException {
 		return ResponseEntity.accepted().body(cService.modifyCourse(id, c));
 	}
 
-	@DeleteMapping("deletecourse/{id}")
+	@DeleteMapping("course/{id}")
 	public ResponseEntity<Course> deleteCourse(@PathVariable("id") int id) throws NoCourseException {
 		return new ResponseEntity<>(cService.deleteCourse(id) ? HttpStatus.ACCEPTED : HttpStatus.NOT_MODIFIED);
 	}

@@ -15,9 +15,10 @@ import com.cg.exception.NoCourseException;
 public class CourseServiceImpl implements CourseService {
 
 	@Autowired
-	CourseRepository cRepo;
+	private CourseRepository cRepo;
 
 	@Override
+	@Transactional
 	public Course addCourse(Course c) {
 		return cRepo.save(c);
 	}
