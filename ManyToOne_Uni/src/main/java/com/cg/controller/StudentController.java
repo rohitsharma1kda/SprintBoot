@@ -22,75 +22,33 @@ public class StudentController {
 	@Autowired
 	StudentService sService;
 
-	// http://localhost:8080/StudentCourseApp/createstudent
 	@PostMapping("/createstudent")
 	public ResponseEntity<Student> createStudent(@RequestBody Student s) {
-		try {
-			Student stu = sService.addStudent(s);
-			return new ResponseEntity<>(stu, HttpStatus.CREATED);
-		} catch (Exception ex) {
-			return new ResponseEntity(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+			return new ResponseEntity<>(sService.addStudent(s), HttpStatus.CREATED);
 	}
 
-	// http://localhost:8080/StudentCourseApp/studentlist
 	@GetMapping("/studentlist")
 	public ResponseEntity<List<Student>> getAllStudent() {
-		try {
-			List<Student> eList = sService.findAllStudent();
-			if (eList.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			} else {
-				return new ResponseEntity<>(eList, HttpStatus.OK);
-			}
-		} catch (Exception ex) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+			return ResponseEntity.ok(sService.findAllStudent());
 	}
 
-	// http://localhost:8080/StudentCourseApp/findstudent/id
-	@GetMapping("/findstudent/{id}")
-	public ResponseEntity<Student> getById(@PathVariable("id") int id) {
-		try {
-			return new ResponseEntity<>(sService.findById(id), HttpStatus.OK);
-		} catch (NoStudentException ex) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} catch (Exception ex) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	@GetMapping("/findstudentbyid/{id}")
+	public ResponseEntity<Student> getById(@PathVariable("id") int id) throws NoStudentException {
+			return ResponseEntity.ok(sService.findById(id));
 	}
 
-	// http://localhost:8080/StudentCourseApp/findstudent/name
 	@GetMapping("/findstudent/{name}")
 	public ResponseEntity<List<Student>> getByName(@PathVariable String name) {
-		try {
-			return new ResponseEntity<>(sService.findStudentByName(name), HttpStatus.OK);
-		} catch (Exception ex) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+			return ResponseEntity.ok(sService.findStudentByName(name));
 	}
 
-	// http://localhost:8080/StudentCourseApp/modifystudent/id
 	@PutMapping("modifystudent/{id}")
-	public ResponseEntity<Student> modifyStudent(@PathVariable("id") int id, @RequestBody Student s) {
-		try {
-			return new ResponseEntity<>(sService.modifyStudent(id, s), HttpStatus.OK);
-		} catch (NoStudentException e) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	public ResponseEntity<Student> modifyStudent(@PathVariable("id") int id, @RequestBody Student s) throws NoStudentException {
+			return ResponseEntity.accepted().body(sService.modifyStudent(id, s));
 	}
 
-	// http://localhost:8080/StudentCourseApp/deletestudent/id
-	@DeleteMapping("deletestudent/{id}")
-	public ResponseEntity<Student> deleteStudent(@PathVariable("id") int id) {
-		try {
-			return new ResponseEntity(sService.deleteStudent(id) ? "deleted" : "not deleted", HttpStatus.OK);
-		} catch (NoStudentException ex) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} catch (Exception ex) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	@DeleteMapping("deletestudent/{isd}")
+	public ResponseEntity<Student> deleteStudent(@PathVariable("id") int id) throws NoStudentException {
+			return new ResponseEntity<>(sService.deleteStudent(id) ? HttpStatus.ACCEPTED : HttpStatus.NOT_MODIFIED);
 	}
 }
